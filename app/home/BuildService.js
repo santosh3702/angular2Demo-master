@@ -18,7 +18,7 @@ require('rxjs/add/operator/map');
 var BuildService = (function () {
     function BuildService(http) {
         this.http = http;
-        this.baseUrl = 'http://localhost:8080';
+        this.baseUrl = 'http://localhost:8080/build';
         this.tempUrl = "";
     }
     BuildService.prototype.doBuild = function (Project) {
@@ -26,7 +26,7 @@ var BuildService = (function () {
         /*  let body  = this.http.get('http://localhost:8080/test').map((res:Response) => res.json()).subscribe(data => {
              alert(data.status);
           });;*/
-        return this.http.post('http://localhost:8080/build', { "url": 'https://github.com/sntripathi01/demo.git', "branch": 'master', "user": 'sntripathi01', "password": 'gCommon11' }).map(function (res) { return res.json(); });
+        return this.http.post(this.baseUrl, { "url": Project.url, "branch": Project.branch, "user": Project.user, "password": Project.password }).map(function (res) { return res.json(); });
         /*alert( this.http.get('http://localhost:8080/test').map((res:Response) => res.json()));
         this.http.get(this.tempUrl).map(res=>{
             alert("map");

@@ -10,7 +10,7 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class BuildService {
 
-    private baseUrl = 'http://localhost:8080';
+    private baseUrl = 'http://localhost:8080/build';
    private  tempUrl  = "";
     private data: any;
     constructor(private http : Http){
@@ -21,8 +21,7 @@ export class BuildService {
       /*  let body  = this.http.get('http://localhost:8080/test').map((res:Response) => res.json()).subscribe(data => {
            alert(data.status);
         });;*/
-
-        return this.http.post('http://localhost:8080/build', {"url": 'https://github.com/sntripathi01/demo.git',"branch": 'master',"user": 'sntripathi01',"password":'gCommon11'}).map((res:Response) => res.json());
+        return this.http.post(this.baseUrl, {"url": Project.url,"branch": Project.branch,"user": Project.user,"password":Project.password}).map((res:Response) => res.json());
         /*alert( this.http.get('http://localhost:8080/test').map((res:Response) => res.json()));
         this.http.get(this.tempUrl).map(res=>{
             alert("map");
