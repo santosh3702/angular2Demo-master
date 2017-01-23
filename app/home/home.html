@@ -1,0 +1,30 @@
+<div class="container">
+    <h2>Build management tool</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Project Name</th>
+
+            <th>Build</th>
+            <th>Satus</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+            <tr *ngFor="let Project of Projects">
+                <td>  {{ Project.name }} </td>
+                <td>
+                    <button class="btn btn-primary" (click)="onItemClicked(Project)" [ngClass]="{disabled : Project.isDisabled}">Build</button></td>
+                <td>
+                    <button class="btn btn-success" *ngIf="Project.showPass ">Pass</button>
+                    <button class="btn btn-danger" *ngIf="Project.showFail" (click) = "ShowLog(Project.log)">Fail</button>
+                    <button class="btn btn-warning" *ngIf="Project.showProgress">Progress..</button>
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+    <div >{{buildLog}}</div>
+</div>
