@@ -17,14 +17,17 @@ var HomeComponent = (function () {
     function HomeComponent(buildService) {
         this.buildService = buildService;
         this.Projects = [
-            { name: "Demo", "url": 'https://github.com/sntripathi01/demo.git', "branch": 'master', "user": '', "password": '', "showPass": false, "showFail": false, "showProgress": false, "isDisabled": false, "log": '' },
-            { name: "Project2", "url": 'https://github.com/sntripathi01/demo.git', "branch": 'master', "user": 'sntripathi01', "password": 'gCommon11', "showPass": false, "showFail": false, "showProgress": false, "isDisabled": false, "log": '' },
+            { logData: 'log', name: "Demo", "url": 'https://github.com/sntripathi01/demo.git', "branch": 'master', "user": '', "password": '', "showPass": false, "showFail": false, "showProgress": false, "isDisabled": false },
+            { name: "mapstruct", "url": 'https://github.com/sntripathi01/mapstruct.git', "branch": 'master', "user": '', "password": '', "showPass": false, "showFail": false, "showProgress": false, "isDisabled": false, logData: 'log1' },
         ];
         this.buildLog = '';
         this.clickedItem = { name: "" };
     }
+    HomeComponent.prototype.showLog = function (Project) {
+        //alert(Project.logData +" log  "+Project.url);
+        this.buildLog = Project.logData;
+    };
     HomeComponent.prototype.onItemClicked = function (Project) {
-        var _this = this;
         // alert(Project.url);
         Project.showProgress = true;
         Project.showPass = false;
@@ -33,10 +36,8 @@ var HomeComponent = (function () {
         this.buildLog = '';
         this.buildService.doBuild(Project).subscribe(function (data) {
             //alert("Data from Service Call" +data.status)
-            _this.buildLog = data.log;
-            //  alert( this.buildLog);
+            Project.logData = data.log;
             if (data.status == "PASS") {
-                //alert("okkkkkk");
                 Project.showPass = true;
                 Project.showProgress = false;
                 Project.showFail = false;
@@ -45,7 +46,6 @@ var HomeComponent = (function () {
                 Project.showPass = false;
                 Project.showProgress = false;
                 Project.showFail = true;
-                Project.log = data.l;
             }
             Project.isDisabled = false;
         });

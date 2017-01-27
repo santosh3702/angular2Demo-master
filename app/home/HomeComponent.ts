@@ -20,12 +20,16 @@ import { BuildService } from './BuildService';
 export class HomeComponent  {
 
     public Projects = [
-        {name: "Demo","url": 'https://github.com/sntripathi01/demo.git',"branch": 'master',"user": '',"password":'',"showPass":false,"showFail":false,"showProgress":false,"isDisabled":false,"log":''},
-        {name: "Project2", "url": 'https://github.com/sntripathi01/demo.git',"branch": 'master',"user": 'sntripathi01',"password":'gCommon11',"showPass":false,"showFail":false,"showProgress":false,"isDisabled":false,"log":''},
+        {logData:'log',name: "Demo","url": 'https://github.com/sntripathi01/demo.git',"branch": 'master',"user": '',"password":'',"showPass":false,"showFail":false,"showProgress":false,"isDisabled":false},
+        {name: "mapstruct", "url": 'https://github.com/sntripathi01/mapstruct.git',"branch": 'master',"user": '',"password":'',"showPass":false,"showFail":false,"showProgress":false,"isDisabled":false,logData:'log1'},
     ];
     buildLog = '';
     constructor(private buildService: BuildService) { }
     public clickedItem = {name: ""};
+    showLog(Project :any){
+        //alert(Project.logData +" log  "+Project.url);
+        this.buildLog= Project.logData;
+    }
     onItemClicked(Project:any) {
       // alert(Project.url);
         Project.showProgress = true;
@@ -35,10 +39,11 @@ export class HomeComponent  {
         this.buildLog= '';
         this.buildService.doBuild(Project).subscribe(data =>{
         //alert("Data from Service Call" +data.status)
-            this.buildLog= data.log;
-          //  alert( this.buildLog);
+
+            Project.logData= data.log;
+
         if(data.status == "PASS"){
-            //alert("okkkkkk");
+
             Project.showPass = true;
             Project.showProgress = false;
             Project.showFail= false;
@@ -48,7 +53,7 @@ export class HomeComponent  {
             Project.showPass = false;
             Project.showProgress = false;
             Project.showFail = true;
-            Project.log= data.l
+
 
         }
             Project.isDisabled = false;

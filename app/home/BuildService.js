@@ -26,7 +26,7 @@ var BuildService = (function () {
         /*  let body  = this.http.get('http://localhost:8080/test').map((res:Response) => res.json()).subscribe(data => {
              alert(data.status);
           });;*/
-        return this.http.post(this.baseUrl, { "url": Project.url, "branch": Project.branch, "user": Project.user, "password": Project.password }).map(function (res) { return res.json(); });
+        return this.http.post(this.baseUrl, { "url": Project.url, "branch": Project.branch, "user": Project.user, "password": Project.password, "projectName": Project.name }).map(function (res) { return res.json(); });
         /*alert( this.http.get('http://localhost:8080/test').map((res:Response) => res.json()));
         this.http.get(this.tempUrl).map(res=>{
             alert("map");

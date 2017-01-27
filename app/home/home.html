@@ -12,13 +12,13 @@
         <tbody>
 
 
-            <tr *ngFor="let Project of Projects">
+            <tr *ngFor="let Project of Projects;let i of index">
                 <td>  {{ Project.name }} </td>
                 <td>
                     <button class="btn btn-primary" (click)="onItemClicked(Project)" [ngClass]="{disabled : Project.isDisabled}">Build</button></td>
                 <td>
                     <button class="btn btn-success" *ngIf="Project.showPass ">Pass</button>
-                    <button class="btn btn-danger" *ngIf="Project.showFail" (click) = "ShowLog(Project.log)">Fail</button>
+                    <button class="btn btn-danger" *ngIf="Project.showFail" (click) = "showLog(Project)">Fail</button>
                     <button class="btn btn-warning" *ngIf="Project.showProgress">Progress..</button>
                 </td>
             </tr>
